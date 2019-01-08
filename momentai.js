@@ -16,6 +16,8 @@ const bot = new Discord.Client({disableEveryone: true})
 bot.on("ready", async () => {
 
 	console.log(`It's time! ${bot.user.username}`);
+	var channel = bot.channels.get('530244788734132224');
+ 	channel.sendMessage("I have been updated! Check me out with tm!patchNotes");
 
 	bot.user.setPresence({ status: 'online', game: { name: 'tm!help' } });
 
@@ -43,7 +45,7 @@ bot.on('guildMemberAdd', member => {
 
   // Send the message to a designated channel on a server:
 
-   member.guild.channels.get("530246387342901269").send(`${member} Reply with tm!change to get a role for your class!`);
+   member.guild.channels.get("530246387342901269").send(`${member} Reply with tm!roles to get a role for your class!`);
   // Send the message, mentioning the member
  
 
@@ -62,7 +64,25 @@ bot.on("message", async message => {
 
 	if(message.author.bot) return;
 	
-	
+const room = bot.channels.get('530244788734132224');	
+if(command === `${prefix}suggest`){
+		message.author.send("What suggestions do you have for the dev to make this bot better? (!cancel to cancel)");
+		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 100000000 });
+        		collector.once('collect', message => {
+            		if (message.content == `${prefix}cancel`) {
+               		 message.author.send("Message cancelled.");
+                		return;
+            		} else {
+				var msg = message.content;
+				var setting = [`:speaking_head: Someone Suggested "`+ msg +`"`, `:speaking_head: Someone thinks, "`+ msg +`" :eyes:`, `:speaking_head: The bot would be nicer if "`+ msg +`"`]
+				var chance = Math.floor(Math.random()*);
+				room.send(setting[chance]);
+				message.author.send("Message Sent.");
+				//BOI
+console.log(message.author.username);
+			}
+			});
+	}	
 	
 
 	if(message.channel.type === "dm") return;
@@ -85,6 +105,7 @@ let kunoichi = message.guild.roles.find("name", "kunoichi");
 let striker = message.guild.roles.find("name", "striker");	
 let mystic = message.guild.roles.find("name", "mystic");	
 let lahn = message.guild.roles.find("name", "lahn");	
+let archer = message.guild.roles.find("name", "archer");	
 
 
 	if(command === `${prefix}help`){
@@ -92,8 +113,8 @@ let lahn = message.guild.roles.find("name", "lahn");
 		let help = new Discord.RichEmbed()
 
 			
-			.setTitle("Momentai 0.1.0: commands")
-			.setDescription("**tm!help**: \n Pulls up this list. \n **tm!change**: Changes your role because you're indecisive af. \n **tm!credits**: Shameless plug made by dev :sunglasses:")
+			.setTitle("Momentai 0.2.0: commands")
+			.setDescription("**tm!help**: \n Pulls up this list. \n **tm!roles**: Lists the classes as if you didn't already know what they were. \n **tm![role name or shortcut]** : Toggles your role because you're indecisive af. \n **tm!patchNotes** : Detailed notes of changes to the bot. \n **tm!credits**: Shameless plug made by dev :sunglasses: \n `DM CHANNEL ONLY` \n **tm!suggest**: Tell the Dev how to do his job better. ")
 			.setColor("#1f3c5b"); 
 
 		message.channel.sendEmbed(help);
@@ -138,57 +159,74 @@ let lahn = message.guild.roles.find("name", "lahn");
 
 		 
 
-		 		}		 		 		
+		 		}	
+	
+	if(command === `${prefix}patchNotes`){
 		
-	if(command === `${prefix}change`){
-	if(message.member.roles.find("name", "warrior")){
-			member.removeRole(warrior).catch(console.error);
-		}
-	if(message.member.roles.find("name", "valkyrie")){
-			member.removeRole(valkyrie).catch(console.error);
-		}
-	if(message.member.roles.find("name", "ranger")){
-			member.removeRole(ranger).catch(console.error);
-		}
-	if(message.member.roles.find("name", "sorceress")){
-			member.removeRole(sorceress).catch(console.error);
-		}
-	if(message.member.roles.find("name", "berserker")){
-			member.removeRole(berserker).catch(console.error);
-		}
-	if(message.member.roles.find("name", "darkKnight")){
-			member.removeRole(darkKnight).catch(console.error);
-		}
-	if(message.member.roles.find("name", "wizard")){
-			member.removeRole(wizard).catch(console.error);
-		}
-	if(message.member.roles.find("name", "witch")){
-			member.removeRole(witch).catch(console.error);
-		}
-	if(message.member.roles.find("name", "tamer")){
-			member.removeRole(tamer).catch(console.error);
-		}
-	if(message.member.roles.find("name", "maewha")){
-			member.removeRole(maewha).catch(console.error);
-		}				
-	if(message.member.roles.find("name", "musa")){
-			member.removeRole(musa).catch(console.error);
-		}
-	if(message.member.roles.find("name", "ninja")){
-			member.removeRole(ninja).catch(console.error);
-		}
-	if(message.member.roles.find("name", "kunoichi")){
-			member.removeRole(kunoichi).catch(console.error);
-		}
-	if(message.member.roles.find("name", "striker")){
-			member.removeRole(striker).catch(console.error);
-		}						
-	if(message.member.roles.find("name", "mystic")){
-			member.removeRole(mystic).catch(console.error);
-		}
-	if(message.member.roles.find("name", "lahn")){
-			member.removeRole(lahn).catch(console.error);
-		}					
+		let notes = new Discord.RichEmbed()
+
+			
+			.setTitle("Patch Notes: 1-8-19 ")
+			.setDescription("- Added new commands to make adding roles easier \n - Added patch notes \n Messages server when updated \n - Added suggestions command \n - Probably added something cool who knows.")
+			.setColor("#1f3c5b");
+			
+			
+
+		message.channel.sendEmbed(notes);
+
+		 
+
+		 		}	
+		
+	if(command === `${prefix}roles`){
+// 	if(message.member.roles.find("name", "warrior")){
+// 			member.removeRole(warrior).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "valkyrie")){
+// 			member.removeRole(valkyrie).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "ranger")){
+// 			member.removeRole(ranger).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "sorceress")){
+// 			member.removeRole(sorceress).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "berserker")){
+// 			member.removeRole(berserker).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "darkKnight")){
+// 			member.removeRole(darkKnight).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "wizard")){
+// 			member.removeRole(wizard).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "witch")){
+// 			member.removeRole(witch).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "tamer")){
+// 			member.removeRole(tamer).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "maewha")){
+// 			member.removeRole(maewha).catch(console.error);
+// 		}				
+// 	if(message.member.roles.find("name", "musa")){
+// 			member.removeRole(musa).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "ninja")){
+// 			member.removeRole(ninja).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "kunoichi")){
+// 			member.removeRole(kunoichi).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "striker")){
+// 			member.removeRole(striker).catch(console.error);
+// 		}						
+// 	if(message.member.roles.find("name", "mystic")){
+// 			member.removeRole(mystic).catch(console.error);
+// 		}
+// 	if(message.member.roles.find("name", "lahn")){
+// 			member.removeRole(lahn).catch(console.error);
+// 		}					
 
 
 
@@ -196,97 +234,102 @@ let lahn = message.guild.roles.find("name", "lahn");
 
 			
 			.setTitle("Respond with one of these commands")
-			.setDescription("tm!warrior \n tm!valkyrie \n tm!ranger \n tm!sorceress \n tm!berserker \n tm!darkKnight \n tm!wizard \n tm!witch \n tm!tamer \n tm!maewha \n tm!musa \n tm!ninja \n tm!kunoichi \n tm!striker \n tm!mystic \n tm!lahn")
+			.setDescription("tm!warrior \n tm!valkyrie \n tm!ranger \n tm!sorceress \n tm!berserker \n tm!darkKnight \n tm!wizard \n tm!witch \n tm!tamer \n tm!maewha \n tm!musa \n tm!ninja \n tm!kunoichi \n tm!striker \n tm!mystic \n tm!lahn \n tm!archer")
 			.setColor("#1f3c5b"); 
 	message.channel.sendEmbed(list);	
-		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 100000000 });
-        		collector.once('collect', message => {
-            		if (message.content == `${prefix}warrior`) {
-            			member.addRole(warrior).catch(console.error);
-               		 message.channel.send("Welcome to the warrior class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}valkyrie`) {
-            			member.addRole(valkyrie).catch(console.error);
-               		 message.channel.send("Welcome to the valkyrie class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}ranger`) {
-            			member.addRole(ranger).catch(console.error);
-               		 message.channel.send("Welcome to the ranger class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}sorceress`) {
-            			member.addRole(sorceress).catch(console.error);
-               		 message.channel.send("Welcome to the sorceress class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}berserker`) {
-            			member.addRole(berserker).catch(console.error);
-               		 message.channel.send("Welcome to the berserker class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}darkKnight`) {
-            			member.addRole(darkKnight).catch(console.error);
-               		 message.channel.send("Welcome to the dark knight class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}wizard`) {
-            			member.addRole(wizard).catch(console.error);
-               		 message.channel.send("Welcome to the wizard class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}witch`) {
-            			member.addRole(witch).catch(console.error);
-               		 message.channel.send("Welcome to the witch class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}tamer`) {
-            			member.addRole(tamer).catch(console.error);
-               		 message.channel.send("Welcome to the tamer class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}maewha`) {
-            			member.addRole(maewha).catch(console.error);
-               		 message.channel.send("Welcome to the maewha class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}musa`) {
-            			member.addRole(musa).catch(console.error);
-               		 message.channel.send("Welcome to the musa class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}ninja`) {
-            			member.addRole(ninja).catch(console.error);
-               		 message.channel.send("Welcome to the ninja class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}kunoichi`) {
-            			member.addRole(kunoichi).catch(console.error);
-               		 message.channel.send("Welcome to the kunoichi class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}striker`) {
-            			member.addRole(striker).catch(console.error);
-               		 message.channel.send("Welcome to the striker class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}mystic`) {
-            			member.addRole(mystic).catch(console.error);
-               		 message.channel.send("Welcome to the mystic class!")
-                		return;
-            		}
-            		if (message.content == `${prefix}lahn`) {
-            			member.addRole(lahn).catch(console.error);
-               		 message.channel.send("Welcome to the lahn class!")
-                		return;
-            		} else {
+// 		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 100000000 });
+//         		collector.once('collect', message => {
+//             		if (message.content == `${prefix}warrior`) {
+//             			member.addRole(warrior).catch(console.error);
+//                		 message.channel.send("Welcome to the warrior class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}valkyrie`) {
+//             			member.addRole(valkyrie).catch(console.error);
+//                		 message.channel.send("Welcome to the valkyrie class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}ranger`) {
+//             			member.addRole(ranger).catch(console.error);
+//                		 message.channel.send("Welcome to the ranger class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}sorceress`) {
+//             			member.addRole(sorceress).catch(console.error);
+//                		 message.channel.send("Welcome to the sorceress class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}berserker`) {
+//             			member.addRole(berserker).catch(console.error);
+//                		 message.channel.send("Welcome to the berserker class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}darkKnight`) {
+//             			member.addRole(darkKnight).catch(console.error);
+//                		 message.channel.send("Welcome to the dark knight class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}wizard`) {
+//             			member.addRole(wizard).catch(console.error);
+//                		 message.channel.send("Welcome to the wizard class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}witch`) {
+//             			member.addRole(witch).catch(console.error);
+//                		 message.channel.send("Welcome to the witch class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}tamer`) {
+//             			member.addRole(tamer).catch(console.error);
+//                		 message.channel.send("Welcome to the tamer class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}maewha`) {
+//             			member.addRole(maewha).catch(console.error);
+//                		 message.channel.send("Welcome to the maewha class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}musa`) {
+//             			member.addRole(musa).catch(console.error);
+//                		 message.channel.send("Welcome to the musa class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}ninja`) {
+//             			member.addRole(ninja).catch(console.error);
+//                		 message.channel.send("Welcome to the ninja class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}kunoichi`) {
+//             			member.addRole(kunoichi).catch(console.error);
+//                		 message.channel.send("Welcome to the kunoichi class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}striker`) {
+//             			member.addRole(striker).catch(console.error);
+//                		 message.channel.send("Welcome to the striker class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}mystic`) {
+//             			member.addRole(mystic).catch(console.error);
+//                		 message.channel.send("Welcome to the mystic class!")
+//                 		return;
+//             		}
+//             		if (message.content == `${prefix}lahn`) {
+//             			member.addRole(lahn).catch(console.error);
+//                		 message.channel.send("Welcome to the lahn class!")
+//                 		return;
+//             		}
+// 			if (message.content == `${prefix}archer`) {
+//             			member.addRole(archer).catch(console.error);
+//                		 message.channel.send("Welcome to the Archer class!")
+//                 		return;
+//             		}	else {
 				
-					message.reply(` That's not a valid input!`);
-					console.log("This person mega dumb.");
-					}
+// 					message.reply(` That's not a valid input!`);
+// 					console.log("This person mega dumb.");
+// 					}
 
-				});
+// 				});
 
 		 
 
@@ -295,6 +338,177 @@ let lahn = message.guild.roles.find("name", "lahn");
 
 
 		 		}	
+	
+	if (command === `${prefix}warrior`) {
+		if(message.member.roles.find("name", "warrior")){
+			member.removeRole(warrior).catch(console.error);
+			message.channel.send("Role removed.")
+		} else {
+            			member.addRole(warrior).catch(console.error);
+               		 message.channel.send("Welcome to the warrior class!")
+                		return;
+            		}
+		}
+            		if (command === `${prefix}valkyrie`) {
+            			if(message.member.roles.find("name", "valkyrie")){
+			member.removeRole(valkyrie).catch(console.error);
+			message.channel.send("Role removed.")
+		} else {
+            			member.addRole(valkyrie).catch(console.error);
+               		 message.channel.send("Welcome to the valkyrie class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}ranger`) {
+            			if(message.member.roles.find("name", "ranger")){
+			member.removeRole(ranger).catch(console.error);
+			message.channel.send("Role removed.")
+		} else {
+            			member.addRole(ranger).catch(console.error);
+               		 message.channel.send("Welcome to the ranger class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}sorceress`) {
+            			if(message.member.roles.find("name", "sorceress")){
+			member.removeRole(sorceress).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(sorceress).catch(console.error);
+               		 message.channel.send("Welcome to the sorceress class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}berserker`) {
+            				if(message.member.roles.find("name", "berserker")){
+			member.removeRole(berserker).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(berserker).catch(console.error);
+               		 message.channel.send("Welcome to the berserker class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}darkKnight`) {
+            					if(message.member.roles.find("name", "darkKnight")){
+			member.removeRole(darkKnight).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(darkKnight).catch(console.error);
+               		 message.channel.send("Welcome to the dark knight class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}wizard`) {
+            			if(message.member.roles.find("name", "wizard")){
+			member.removeRole(wizard).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(wizard).catch(console.error);
+               		 message.channel.send("Welcome to the wizard class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}witch`) {
+            			if(message.member.roles.find("name", "witch")){
+			member.removeRole(witch).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(witch).catch(console.error);
+               		 message.channel.send("Welcome to the witch class!")
+                		return;
+            		}
+            		}
+            		if (message.content == `${prefix}tamer`) {
+            				if(message.member.roles.find("name", "tamer")){
+			member.removeRole(tamer).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(tamer).catch(console.error);
+               		 message.channel.send("Welcome to the tamer class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}maewha`) {
+            			if(message.member.roles.find("name", "maewha")){
+			member.removeRole(maewha).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(maewha).catch(console.error);
+               		 message.channel.send("Welcome to the maewha class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}musa`) {
+            				if(message.member.roles.find("name", "musa")){
+			member.removeRole(musa).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(musa).catch(console.error);
+               		 message.channel.send("Welcome to the musa class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}ninja`) {
+            			if(message.member.roles.find("name", "ninja")){
+			member.removeRole(ninja).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(ninja).catch(console.error);
+               		 message.channel.send("Welcome to the ninja class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}kunoichi`) {
+            			if(message.member.roles.find("name", "kunoichi")){
+			member.removeRole(kunoichi).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(kunoichi).catch(console.error);
+               		 message.channel.send("Welcome to the kunoichi class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}striker`) {
+            				if(message.member.roles.find("name", "striker")){
+			member.removeRole(striker).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(striker).catch(console.error);
+               		 message.channel.send("Welcome to the striker class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}mystic`) {
+            				if(message.member.roles.find("name", "mystic")){
+			member.removeRole(mystic).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(mystic).catch(console.error);
+               		 message.channel.send("Welcome to the mystic class!")
+                		return;
+            		}
+            		}
+            		if (command === `${prefix}lahn`) {
+            			if(message.member.roles.find("name", "lahn")){
+			member.removeRole(lahn).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(lahn).catch(console.error);
+               		 message.channel.send("Welcome to the lahn class!")
+                		return;
+            		}
+            		}
+			if (command === `${prefix}archer`) {
+            				if(message.member.roles.find("name", "archer")){
+			member.removeRole(archer).catch(console.error);
+			message.channel.send("Role removed.")
+			} else {
+            			member.addRole(archer).catch(console.error);
+               		 message.channel.send("Welcome to the archer class!")
+                		return;
+            		}
+            		}
 
 		return;
 
