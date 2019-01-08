@@ -74,8 +74,8 @@ if(command === `${prefix}suggest`){
                 		return;
             		} else {
 				var msg = message.content;
-				var setting = [`:speaking_head: Someone Suggested "`+ msg +`"`, `:speaking_head: Someone thinks, "`+ msg +`" :eyes:`, `:speaking_head: The bot would be nicer if "`+ msg +`"`]
-				var chance = Math.floor(Math.random()*);
+				var setting = [`:speaking_head: Someone Suggested "`+ msg +`"`, `:speaking_head: Someone thinks, "`+ msg +`" :eyes:`, `:speaking_head: The bot would be nicer if "`+ msg +`"`];
+				var chance = Math.floor(Math.random()*3);
 				room.send(setting[chance]);
 				message.author.send("Message Sent.");
 				//BOI
