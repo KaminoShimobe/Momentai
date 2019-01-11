@@ -117,8 +117,8 @@ let archer = message.guild.roles.find("name", "archer");
 			.setDescription("**tm!help**: \n Pulls up this list. \n **tm!roles**: Lists the classes as if you didn't already know what they were. \n **tm![role name or shortcut]** : Toggles your role because you're indecisive af. \n **tm!patchNotes** : Detailed notes of changes to the bot. \n **tm!credits**: Shameless plug made by dev :sunglasses: \n `DM CHANNEL ONLY` \n **tm!suggest**: Tell the Dev how to do his job better. ")
 			.setColor("#1f3c5b"); 
 
-		message.channel.sendEmbed(help);
-
+		message.author.sendEmbed(help);
+		message.reply(" This is probably the only DM you'll get, but I sent you a DM of the help list!");
 		 
 
 		 
@@ -166,8 +166,8 @@ let archer = message.guild.roles.find("name", "archer");
 		let notes = new Discord.RichEmbed()
 
 			
-			.setTitle("Patch Notes: 1-8-19 ")
-			.setDescription("- Added new commands to make adding roles easier \n - Added patch notes \n Messages server when updated \n - Added suggestions command \n - Probably added something cool who knows.")
+			.setTitle("Patch Notes: 1-11-19 ")
+			.setDescription("-tm!help now dms you the list! Try it out!  \n - Probably added something cool who knows???")
 			.setColor("#1f3c5b");
 			
 			
