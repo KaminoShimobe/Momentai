@@ -17,7 +17,7 @@ bot.on("ready", async () => {
 
 	console.log(`It's time! ${bot.user.username}`);
 	var channel = bot.channels.get('530244788734132224');
- 	channel.sendMessage("I have been updated! You probably should check me out with tm!patchNotes \n The dev added somethin' neat");
+ 	//channel.sendMessage("I have been updated! You probably should check me out with tm!patchNotes \n The dev added somethin' neat");
 
 	bot.user.setPresence({ status: 'online', game: { name: 'tm!help' } });
 
